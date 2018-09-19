@@ -7,8 +7,6 @@
             <h4 class="h4-responsive text-white">View Class</h4>
           </view-wrapper>
           <card-body>
-          //Ero said i should make a comments
-          //Now he's blushing
           <class-data :aclasses="aclasses">
           </class-data>
           </card-body>
