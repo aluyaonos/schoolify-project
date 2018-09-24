@@ -7,7 +7,10 @@ export default {
   classList () {
     return Api().get('viewclass')
   },
-  updateClass (classupdate) {
-    return Api().put(`viewclass/${classupdate._id}`, classupdate)
+  updateClass (params) {
+    return Api().put('viewclass/' + params.id, params)
+  },
+  deleteClass (id) {
+    return Api().delete('viewclass/' + id)
   }
 }

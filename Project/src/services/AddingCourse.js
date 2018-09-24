@@ -6,5 +6,8 @@ export default {
   },
   courseList () {
     return Api().get('viewcourse')
+  },
+  updateCourse (id, courseupdate) {
+    return Api().put('viewcourse/' + id, courseupdate)
   }
 }

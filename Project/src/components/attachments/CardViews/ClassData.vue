@@ -2,7 +2,7 @@
   <section id="class-data">
         <div class="text-center pb-3">
           <div class="row" v-for="aclasses in groupedClasses" :key="aclasses._id">
-          <div class="col-12 col-md-4" v-for="aclass in aclasses" :key="aclass._id">
+          <div class="col-12 col-md-4" v-for="(aclass, index) in aclasses" :key="aclass._id">
               <card cascade narrow class="d-flex mb-1 mt-4">
                 <view-wrapper>
                 <img src="@/assets/courses.jpg" alt="Project" class="img-fluid"/>
@@ -42,7 +42,7 @@
                 </card-body>
                 <card-footer class="links-light profile-card-footer justify-content-center">
                   <span class="right">
-                    <a class="p-2" href="#profile">
+                    <a class="p-2" @click="deleteClass(aclass._id, index)">
                       Delete
                       <fa icon="photo" class="ml-1"/>
                     </a>
@@ -59,6 +59,7 @@
 import { Row, Column, Card, CardBody, ViewWrapper, MdMask, CardTitle, CardText, CardFooter, Fa, Btn, Badge } from 'mdbvue'
 import _ from 'lodash'
 import ClassView from '../ModalPopup/ClassView'
+import AddingClass from '@/services/AddingClass'
 
 export default {
   name: 'ClassData',
@@ -79,7 +80,8 @@ export default {
   },
   data () {
     return {
-      showFluidModalRight: false
+      showFluidModalRight: false,
+      aclasses: null
     }
   },
   computed: {
@@ -87,7 +89,20 @@ export default {
       return _.chunk(this.aclasses, 3)
     }
   },
-  props: ['aclasses']
+  async mounted () {
+    try {
+      this.aclasses = (await AddingClass.classList()).data
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  methods: {
+    async deleteClass (id, index) {
+      console.log('touched')
+      await AddingClass.deleteClass(id)
+      this.aclasses.splice(index, 1)
+    }
+  }
 }
 </script>
 

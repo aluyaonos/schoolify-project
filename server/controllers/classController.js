@@ -57,6 +57,11 @@ module.exports = {
         //Exception handling
         new_class.save(function (error){
             if(error){
+                res.send({
+                    success: false,
+                    error: 'Please use a different name',
+                    message: `Use a different name`
+            })
                 console.log(error)
             }
             res.send({

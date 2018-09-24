@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueMaterial from 'vue-material'
+import VueWait from 'vue-wait'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -17,6 +18,7 @@ import _ from 'lodash'
 Vue.use(Multiselect)
 Vue.use(VueMaterial)
 Vue.use(Vuelidate)
+Vue.use(VueWait)
 Vue.use(_)
 
 Vue.use(VueGoogleMaps, {
@@ -32,5 +34,9 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  wait: new VueWait({
+    registerComponent: true,
+    componentName: 'v-wait'
+  })
 })

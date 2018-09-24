@@ -56,6 +56,8 @@
 <script>
 import { Row, Column, Card, CardBody, ViewWrapper, MdMask, CardTitle, CardText, CardFooter, Fa, Btn, Badge } from 'mdbvue'
 import _ from 'lodash'
+import CourseView from '../ModalPopup/CourseView'
+import AddingCourse from '@/services/AddingCourse'
 
 export default {
   name: 'CourseData',
@@ -71,14 +73,21 @@ export default {
     CardFooter,
     Fa,
     Btn,
-    Badge
+    Badge,
+    CourseView
   },
   computed: {
     groupedCourses () {
       return _.chunk(this.courses, 3)
     }
   },
-  props: ['courses']
+  async mounted () {
+    try {
+      this.courses = (await AddingCourse.courseList()).data
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
 </script>
 

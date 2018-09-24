@@ -7,7 +7,7 @@
             <h4 class="h4-responsive text-white">View Class</h4>
           </view-wrapper>
           <card-body>
-          <class-data :aclasses="aclasses">
+          <class-data>
           </class-data>
           </card-body>
         </card>
@@ -19,7 +19,6 @@
 <script>
 import { Row, Column, Card, ViewWrapper, CardBody } from 'mdbvue'
 import ClassData from './attachments/CardViews/ClassData'
-import AddingClass from '@/services/AddingClass'
 
 export default {
   name: 'ViewClass',
@@ -30,14 +29,6 @@ export default {
     ViewWrapper,
     CardBody,
     ClassData
-  },
-  data () {
-    return {
-      aclasses: null
-    }
-  },
-  async mounted () {
-    this.aclasses = (await AddingClass.classList()).data
   }
 }
 </script>

@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var courseSchema = new Schema({
-    title: String,
-    courseCode: String,
+    title: {type: String, unique: true},
+    courseCode: {type: String, unique: true},
     classLevel: String,
     timesAweek: Number,
     contLecturers: Number,

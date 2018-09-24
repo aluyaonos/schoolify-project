@@ -1,5 +1,34 @@
 <template>
   <section id="add-class">
+    <v-wait for="overlay reload">
+    <template slot="waiting">
+    <div class="d-flex justify-content-center">
+      <row class="mt-5">
+        <column md="12" class="mt-5">
+          <h2 class="h2-responsive mt-5 mb-5">Creating A blank slate ...</h2>
+          <h4>The requested URL was not found on this server.</h4>
+          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
+          <h4>Error 404</h4>
+        </column>
+      </row>
+    </div>
+    </template>
+
+    <v-wait for="overlay">
+      <template slot="waiting">
+    <div class="d-flex justify-content-center">
+      <row class="mt-5">
+        <column md="12" class="mt-5">
+          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
+          <h2 class="h2-responsive mt-5 mb-5">404. That's an error.</h2>
+          <h4>The requested URL was not found on this server.</h4>
+          <h4>Error 404</h4>
+          <btn outline="success" rounded size="md" @click.native='created'>Add New
+          </btn>
+        </column>
+      </row>
+    </div>
+    </template>
   <form @submit.prevent="attending">
 
     <row>
@@ -14,24 +43,24 @@
               <row class="mt-4 ">
               <column col="12">
 
-             <div class="form-group" :class="{ 'form-group--error': $v.classLevel.$error }">
-                <md-input label="Level" placeholder="Example. 100 Level" class="form__input" v-model.trim="$v.classLevel.$model"/> <!-- database -->
-             </div>
-              <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.classLevel.required && $v.classLevel.$error">Please enter a level</md-tooltip>
-              <md-tooltip class="error white-text" md-direction="top" v-if="!$v.classLevel.minLength">Level must have at least {{$v.classLevel.$params.minLength.min}} letters</md-tooltip>
-              <!-- <div class="error orange-text" v-if="!$v.classLevel.required && $v.classLevel.$error">Level is required</div>
-              <div class="error orange-text" v-if="!$v.classLevel.minLength">Level must have at least {{$v.classLevel.$params.minLength.min}} letters.</div> -->
+                  <md-field>
+                    <label>Class Level</label>
+                    <md-input placeholder="Class Level (Example. 100 Level)" v-model.trim="$v.classLevel.$model"></md-input>
+                    <span class="md-helper-text red-text" v-if="!$v.classLevel.required && $v.classLevel.$error">Please enter a level</span>
+                    <span class="md-helper-text red-text" v-if="!$v.classLevel.minLength">Level must have at least {{$v.classLevel.$params.minLength.min}} letters</span>
+                  </md-field>
 
               </column>
               </row>
+
               <row class="mt-4 mb-2">
               <column col="12">
 
-                <div class="form-group" :class="{ 'form-group--error': $v.studentNumber.$error }">
-                <md-input placeholder="Total Number of Students" class="form__input" v-model.trim.lazy="$v.studentNumber.$model"></md-input>   <!-- database -->
-                </div>
-                <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.studentNumber.between">Must be between {{$v.studentNumber.$params.between.min}} and {{$v.studentNumber.$params.between.max}}</md-tooltip>
-                <!-- <div class="error orange-text" v-if="!$v.studentNumber.between">Must be between {{$v.studentNumber.$params.between.min}} and {{$v.studentNumber.$params.between.max}}</div> -->
+                  <md-field>
+                    <label>Student Number</label>
+                    <md-input type="number" placeholder="Total Number of Students" v-model.trim.lazy="$v.studentNumber.$model"></md-input>
+                    <span class="md-helper-text red-text" v-if="!$v.studentNumber.between">*Must be between {{$v.studentNumber.$params.between.min}} and {{$v.studentNumber.$params.between.max}}</span>
+                  </md-field>
 
               </column>
               </row>
@@ -48,31 +77,30 @@
             <column col="12" class="mb-4">
               <card cascade narrow class="d-flex mb-2 bottom-right">
                 <card-body>
-                  <h3 class="h3-responsive mt-2 text-center black-text">Course Represntative Contact Details</h3>
+                  <h3 class="h3-responsive mt-2 text-center black-text">Course Representative Contact Details</h3>
                   <card-text>
                     <row class="mt-4">
                     <column col="12" class="mb-1">
 
-                    <div class="form-group" :class="{ 'form-group--error': $v.repName.$error }">
-                    <md-input label="Full Name" class="form__input" v-model.trim="$v.repName.$model"/><!-- database -->
-                    </div>
-                    <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.repName.required && $v.repName.$error">Please enter a full name</md-tooltip>
-                    <md-tooltip class="error white-text" md-direction="top" v-if="!$v.repName.minLength">Full Name must have at least {{$v.repName.$params.minLength.min}} letters.</md-tooltip>
-                    <!-- <div class="error orange-text" v-if="!$v.repName.required && $v.repName.$error">Full Name is required</div> -->
-                    <!-- <div class="error orange-text" v-if="!$v.repName.minLength">Full Name must have at least {{$v.repName.$params.minLength.min}} letters.</div> -->
+                    <md-field>
+                      <label>Full Name</label>
+                      <md-input v-model.trim="$v.repName.$model"></md-input>
+                      <span class="md-helper-text red-text" v-if="!$v.repName.required && $v.repName.$error">*Please enter a full name</span>
+                      <span class="md-helper-text red-text" v-if="!$v.repName.minLength">*Full Name must have at least {{$v.repName.$params.minLength.min}} letters</span>
+                    </md-field>
 
                     </column>
                     </row>
                     <row>
                     <column col="12" class="mb-1">
 
-                    <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
-                    <md-input label="Email" class="form__input" v-model.trim="$v.email.$model"/><!-- database -->
-                    </div>
-                    <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.email.required  && $v.email.$error">A valid email is required</md-tooltip>
-                    <md-tooltip class="error white-text" md-direction="top" v-if="!$v.email.email">Please enter a valid email address</md-tooltip>
-                    <!-- <div class="error orange-text" v-if="!$v.email.required  && $v.email.$error">A valid email is required</div> -->
-                    <!-- <div class="error orange-text" v-if="!$v.email.email">Please enter a valid email address</div> -->
+                    <md-field>
+                      <label>Email</label>
+                      <md-input v-model.trim="$v.email.$model"></md-input>
+                      <span class="md-helper-text red-text" v-if="!$v.email.required  && $v.email.$error">*A valid email is required</span>
+                      <span class="md-helper-text red-text" v-if="!$v.email.email">*Please enter a valid email address</span>
+                    </md-field>
+
                     </column>
                     </row>
 
@@ -82,8 +110,15 @@
                       <p class="typo__p red-text" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
                       <p class="typo__p orange-text" v-if="submitStatus === 'PENDING'">Sending...</p> -->
 
-                      <btn outline="success" rounded size="md" @click.native.prevent="attending(); tooltipActive = !tooltipActive" :disabled="submitStatus === 'PENDING'">Save</btn>
-                      <btn outline="danger" rounded size="md" @click.native.prevent="$v.$reset">Cancel</btn>
+                      <btn outline="success" rounded size="md" @click.native.prevent="attending()" :disabled='$wait.is("post class")'>
+ <v-wait for='post class'>
+    <template slot="waiting">
+      Saving..
+    </template>
+    Save
+  </v-wait>
+                      </btn>
+                      <btn outline="danger" rounded size="md" @click.native.prevent="$v.$reset; resetter()">Clear</btn>
                     </column>
                     </row>
 
@@ -99,13 +134,27 @@
 
     </row>
   </form>
+
+    <btn outline="danger" rounded size="md" @click.native.prevent='load' :disabled='$wait.is("my list is to load")'>
+  <v-wait for='my list is to load'>
+    <template slot="waiting">
+      loading list..
+    </template>
+    Load list again.
+  </v-wait>
+    </btn>
+  </v-wait>
+
+    </v-wait>
   </section>
 </template>
 
 <script>
-import { Row, Column, Card, CardBody, ViewWrapper, MdMask, CardTitle, CardText, CardFooter, Fa, Btn, MdInput, NumericInput, MdTextarea } from 'mdbvue'
+import { Row, Column, Card, CardBody, ViewWrapper, MdMask, CardTitle, CardText, CardFooter, Fa, Btn, NumericInput, MdTextarea } from 'mdbvue'
 import { required, minLength, between, email } from 'vuelidate/lib/validators'
 import AddingClass from '@/services/AddingClass'
+
+const mockData = ['a', 'b', 'c', 'd']
 
 export default {
   name: 'AddClass',
@@ -121,7 +170,6 @@ export default {
     CardFooter,
     Fa,
     Btn,
-    MdInput,
     NumericInput,
     MdTextarea
   },
@@ -131,8 +179,9 @@ export default {
       studentNumber: null,
       repName: '',
       email: '',
-      tooltipActive: false,
-      submitStatus: null
+      error: null,
+      submitStatus: null,
+      myList: []
     }
   },
   validations: {
@@ -161,6 +210,7 @@ export default {
           this.submitStatus = 'ERROR'
         } else {
           //  submit logic here
+          this.$wait.start('post class')
           await AddingClass.addClass({
             classLevel: this.classLevel,
             studentNumber: this.studentNumber,
@@ -170,12 +220,46 @@ export default {
           this.submitStatus = 'PENDING'
           setTimeout(() => {
             this.submitStatus = 'OK'
-          }, 500)
+          }, 3000)
+          this.myList = await new Promise(resolve => {
+            setTimeout(() => resolve(mockData), 4000)
+          })
+          this.$wait.end('post class')
+          this.$wait.start('overlay')
           console.log('submit!')
         }
       } catch (error) {
         this.error = error.response.data.error
+        console.log(this.error)
       }
+    },
+    resetter () {
+      this.$v.$reset()
+      this.classLevel = null
+      this.studentNumber = null
+      this.repName = null
+      this.email = null
+      this.submitStatus = null
+      this.$v.$reset()
+    },
+    async load () {
+      // start waiting
+      this.$wait.start('my list is to load')
+
+      this.myList = await new Promise(resolve => {
+        setTimeout(() => resolve(mockData), 2000)
+      })
+      // stop waiting
+      this.$wait.end('my list is to load')
+      this.$wait.start('overlay')
+    },
+    async created () {
+      this.$wait.start('overlay reload')
+      this.myList = await new Promise(resolve => {
+        setTimeout(() => resolve(mockData), 5000)
+      })
+      location.reload()
+      this.$wait.end('overlay reload')
     }
   }
 }
@@ -183,6 +267,16 @@ export default {
 </script>
 
 <style scoped>
+.postload-img{
+  width: 15%;
+  height: auto;
+  padding: 0.1rem;
+  color: #fff;
+  text-align: left;
+  margin-right: 0.5rem;
+  margin-left: 1.5rem;
+  border-radius: 100px;
+}
 .top-left{
   border-radius: 25px 0 10px 10px
 }
