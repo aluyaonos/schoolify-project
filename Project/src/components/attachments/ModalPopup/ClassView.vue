@@ -117,22 +117,26 @@ export default {
   },
   methods: {
     async update () {
-      this.$v.$touch()
-      //  submit logic here
-      this.$wait.start('post class')
-      await AddingClass.updateClass({
-        id: this.classdata._id,
-        classLevel: this.classLevel,
-        studentNumber: this.studentNumber,
-        repName: this.repName,
-        email: this.email
-      })
-      this.myList = await new Promise(resolve => {
-        setTimeout(() => resolve(mockData), 2000)
-      })
-      this.$wait.end('post class')
-      // $emit and action to call on mount in class data
-      console.log('submit!')
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR'
+      } else {
+        this.$v.$touch()
+        //  submit logic here
+        this.$wait.start('post class')
+        await AddingClass.updateClass({
+          id: this.classdata._id,
+          classLevel: this.classLevel,
+          studentNumber: this.studentNumber,
+          repName: this.repName,
+          email: this.email
+        })
+        this.myList = await new Promise(resolve => {
+          setTimeout(() => resolve(mockData), 2000)
+        })
+        this.$wait.end('post class')
+        // $emit and action to call on mount in class data
+        console.log('submit!')
+      }
     }
   },
   props: ['showFluidModalRight', 'classdata']

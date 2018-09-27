@@ -1,5 +1,34 @@
 <template>
   <section id="add-courses">
+    <v-wait for="overlay reload">
+    <template slot="waiting">
+    <div class="d-flex justify-content-center">
+      <row class="mt-5">
+        <column md="12" class="mt-5">
+          <h2 class="h2-responsive mt-5 mb-5">Creating A blank slate ...</h2>
+          <h4>The requested URL was not found on this server.</h4>
+          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
+          <h4>Error 404</h4>
+        </column>
+      </row>
+    </div>
+    </template>
+
+    <v-wait for="overlay">
+      <template slot="waiting">
+    <div class="d-flex justify-content-center">
+      <row class="mt-5">
+        <column md="12" class="mt-5">
+          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
+          <h2 class="h2-responsive mt-5 mb-5">404. That's an error.</h2>
+          <h4>The requested URL was not found on this server.</h4>
+          <h4>Error 404</h4>
+          <btn outline="success" rounded size="md" @click.native='created'>Add New
+          </btn>
+        </column>
+      </row>
+    </div>
+    </template>
     <form>
     <row>
       <column md="7" class="mb-1">
@@ -10,29 +39,27 @@
               <md-mask overlay="white-slight" waves/>
             </view-wrapper>
             <card-text>
-              <row class="mt-3">
+              <row class="mt-4">
               <column col="12">
 
-                <div class="form-group" :class="{ 'form-group--error': $v.title.$error }">
-                <md-input label="Course Title" class="form__input" v-model.trim="$v.title.$model"/><!-- database -->
-                </div>
-                  <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.title.required && $v.title.$error">Please enter a course title</md-tooltip>
-                  <md-tooltip class="error white-text" md-direction="top" v-if="!$v.title.minLength">The course title must have at least {{$v.title.$params.minLength.min}} letters</md-tooltip>
-                  <!-- <div class="error orange-text" v-if="!$v.title.required && $v.title.$error">Course title is required</div> -->
-                  <!-- <div class="error orange-text" v-if="!$v.title.minLength">The course title must have at least {{$v.title.$params.minLength.min}} letters.</div> -->
+                  <md-field>
+                    <label>Course Title</label>
+                    <md-input v-model.trim="$v.title.$model"></md-input>
+                    <span class="md-helper-text red-text" v-if="!$v.title.required && $v.title.$error">*Please enter a title</span>
+                    <span class="md-helper-text red-text" v-if="!$v.title.minLength">*Course title must have at least {{$v.title.$params.minLength.min}} letters</span>
+                  </md-field>
 
               </column>
               </row>
               <row class="mt-4">
               <column md="6">
 
-                <div class="form-group" :class="{ 'form-group--error': $v.courseCode.$error }">
-                <md-input label="Course Code" placeholder="Example. CSC-400" class="form__input" v-model.trim="$v.courseCode.$model"/><!-- database -->
-                </div>
-                  <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.courseCode.required && $v.courseCode.$error">A course code is required</md-tooltip>
-                  <md-tooltip class="error white-text" md-direction="top" v-if="!$v.courseCode.minLength">Course code must have at least {{$v.courseCode.$params.minLength.min}} letters</md-tooltip>
-                  <!-- <div class="error orange-text" v-if="!$v.courseCode.required && $v.courseCode.$error">Course code is required</div> -->
-                  <!-- <div class="error orange-text" v-if="!$v.courseCode.minLength">Course code must have at least {{$v.courseCode.$params.minLength.min}} letters.</div> -->
+                  <md-field>
+                    <label>Course Code</label>
+                    <md-input placeholder="Example. CSC-400" v-model.trim="$v.courseCode.$model"></md-input>
+                    <span class="md-helper-text red-text" v-if="!$v.courseCode.required && $v.courseCode.$error">*A course code is required</span>
+                    <span class="md-helper-text red-text" v-if="!$v.courseCode.minLength">Course code must have at least {{$v.courseCode.$params.minLength.min}} letters</span>
+                  </md-field>
 
               </column>
               <column md="6">
@@ -41,27 +68,26 @@
                 <label class="typo__label">Select A Class Level</label>
                 <multiselect class="form__input" v-model.trim="$v.classLevel.$model" :options="classTostrin" placeholder="Type to search" label="classLevel" track-by="classLevel" id="classLevel" :loading="isLoading" :searchable="true" open-direction="bottom" :options-limit="10" :max-height="600" :hide-selected="true"></multiselect><!-- database -->
                 </div>
-                  <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.classLevel.required && $v.classLevel.$error">Please select a level</md-tooltip>
-                  <!-- <div class="error orange-text" v-if="!$v.classLevel.required && $v.classLevel.$error">Level is required</div> -->
+                <!--  <span class="md-helper-text red-text" v-if="!$v.classLevel.required && $v.classLevel.$error">*Please select a level</span> -->
               </column>
               </row>
               <row class="mt-4">
               <column md="6" class="mb-2">
 
-               <div class="form-group" :class="{ 'form-group--error': $v.contLecturers.$error }">
-                <md-input placeholder="Participating Lecturers" class="form__input" v-model.trim.lazy="$v.contLecturers.$model"></md-input> <!-- database (select field with binding to class db) -->
-                </div>
-                <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.contLecturers.between">Must be between {{$v.contLecturers.$params.between.min}} and {{$v.contLecturers.$params.between.max}}</md-tooltip>
-                <!-- <div class="error orange-text" v-if="!$v.contLecturers.between">Must be between {{$v.contLecturers.$params.between.min}} and {{$v.contLecturers.$params.between.max}}</div> -->
+                  <md-field>
+                    <label>Participating Lectures</label>
+                    <md-input type="number"  v-model.trim="$v.contLecturers.$model"></md-input>
+                    <span class="md-helper-text red-text" v-if="!$v.contLecturers.between">Must be between {{$v.contLecturers.$params.between.min}} and {{$v.contLecturers.$params.between.max}}</span>
+                  </md-field>
 
               </column>
               <column md="6" class="mb-2">
 
-                <div class="form-group" :class="{ 'form-group--error': $v.timesAweek.$error }">
-                <md-input placeholder="Times A Week" class="form__input" v-model.trim.lazy="$v.timesAweek.$model"></md-input> <!-- database -->
-                </div>
-                <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.timesAweek.between">Must be between {{$v.timesAweek.$params.between.min}} and {{$v.timesAweek.$params.between.max}}</md-tooltip>
-                <!-- <div class="error orange-text" v-if="!$v.timesAweek.between">Must be between {{$v.timesAweek.$params.between.min}} and {{$v.timesAweek.$params.between.max}}</div> -->
+                  <md-field>
+                    <label>Times A Week</label>
+                    <md-input type="number"  v-model.trim="$v.timesAweek.$model"></md-input>
+                    <span class="md-helper-text red-text" v-if="!$v.timesAweek.between">Must be between {{$v.timesAweek.$params.between.min}} and {{$v.timesAweek.$params.between.max}}</span>
+                  </md-field>
 
               </column>
               </row>
@@ -81,13 +107,12 @@
                   <h3 class="h3-responsive mt-2 text-center blue-text">Describe the course in a sentence</h3>
                   <card-text>
 
-                   <div class="form-group" :class="{ 'form-group--error': $v.description.$error }">
-                   <md-textarea :rows="2" label="Course description" class="form__input" v-model.trim="$v.description.$model"/>
-                   </div>
-                    <md-tooltip class="error white-text" :md-active.sync="tooltipActive" md-direction="top" v-if="!$v.description.required && $v.description.$error">Please describe the course</md-tooltip>
-                    <md-tooltip class="error white-text" md-direction="top" v-if="!$v.description.minLength">Must have at least {{$v.description.$params.minLength.min}} letters</md-tooltip>
-                     <!-- <div class="error orange-text" v-if="!$v.description.required && $v.description.$error">A description is required</div> -->
-                     <!-- <div class="error orange-text" v-if="!$v.description.minLength">Must have at least {{$v.description.$params.minLength.min}} letters.</div> -->
+                  <md-field>
+                    <label>Course Description</label>
+                    <md-textarea :rows="2"  v-model.trim="$v.description.$model"/>
+                    <span class="md-helper-text red-text" v-if="!$v.description.required && $v.description.$error">Please describe the course</span>
+                    <span class="md-helper-text red-text" v-if="!$v.description.minLength">Must have at least {{$v.description.$params.minLength.min}} letters</span>
+                  </md-field>
 
                   </card-text>
                 </card-body>
@@ -99,12 +124,15 @@
               <card cascade narrow class="d-flex mb-5">
                 <card-body>
 
-               <!-- <p class="typo__p green-text" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
-                <p class="typo__p red-text" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
-                <p class="typo__p orange-text" v-if="submitStatus === 'PENDING'">Sending...</p> -->
-
-                <btn outline="success" rounded size="md" @click.native.prevent="register(); tooltipActive = !tooltipActive" :disabled="submitStatus === 'PENDING'">Save</btn>
-                <btn outline="danger" rounded size="md" @click.native.prevent="$v.$reset">Cancel</btn>
+                      <btn outline="success" rounded size="md" @click.native.prevent="register" :disabled='$wait.is("post class")'>
+                      <v-wait for='post class'>
+                          <template slot="waiting">
+                            Saving..
+                          </template>
+                          Save
+                        </v-wait>
+                      </btn>
+                <btn outline="danger" rounded size="md" @click.native.prevent="resetter">Cancel</btn>
                 </card-body>
                 <card-footer color="blue darken-1" class="lighten-3 p-1 text-center">
                   <p class="mt-2">Complete course registration</p>
@@ -119,16 +147,20 @@
 
     </row>
     </form>
+  </v-wait>
+  </v-wait>
   </section>
 </template>
 
 <script>
-import { Row, Column, Card, CardBody, ViewWrapper, MdMask, CardTitle, CardText, CardFooter, Fa, Btn, MdInput, NumericInput, MdTextarea } from 'mdbvue'
+import { Row, Column, Card, CardBody, ViewWrapper, MdMask, CardTitle, CardText, CardFooter, Fa, Btn, NumericInput } from 'mdbvue'
 import { required, minLength, between } from 'vuelidate/lib/validators'
 import Multiselect from 'vue-multiselect'
 import AddingClass from '@/services/AddingClass'
 import AddingCourse from '@/services/AddingCourse'
 import _ from 'lodash'
+
+const mockData = ['a', 'b', 'c', 'd']
 
 export default {
   name: 'AddCourses',
@@ -144,9 +176,7 @@ export default {
     CardFooter,
     Fa,
     Btn,
-    MdInput,
     NumericInput,
-    MdTextarea,
     Multiselect
   },
   data () {
@@ -159,8 +189,8 @@ export default {
       contLecturers: null,
       description: '',
       submitStatus: null,
-      tooltipActive: false,
-      isLoading: false
+      isLoading: false,
+      myList: []
     }
   },
   async mounted () {
@@ -204,8 +234,8 @@ export default {
     async register () {
       this.$v.$touch()
       try {
-        console.log('submit!')
         this.$v.$touch()
+        this.$wait.start('post class')
         if (this.$v.$invalid) {
           this.submitStatus = 'ERROR'
         } else {
@@ -222,10 +252,35 @@ export default {
           setTimeout(() => {
             this.submitStatus = 'OK'
           }, 500)
+          this.myList = await new Promise(resolve => {
+            setTimeout(() => resolve(mockData), 3000)
+          })
+          this.$wait.end('post class')
+          this.$wait.start('overlay')
         }
       } catch (error) {
         this.error = error.response.data.error
       }
+    },
+    resetter () {
+      this.$v.$reset()
+      this.title = ''
+      this.courseCode = ''
+      this.classLevel = null
+      this.classSelect = []
+      this.timesAweek = null
+      this.contLecturers = null
+      this.description = ''
+      this.submitStatus = null
+      this.$v.$reset()
+    },
+    async created () {
+      this.$wait.start('overlay reload')
+      this.myList = await new Promise(resolve => {
+        setTimeout(() => resolve(mockData), 5000)
+      })
+      location.reload()
+      this.$wait.end('overlay reload')
     }
   }
 }

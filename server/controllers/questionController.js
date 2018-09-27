@@ -66,6 +66,10 @@ module.exports = {
             question.course = req.body.course,
             question.priority = req.body.priority,
             question.question = req.body.question,
+            question.answer1 = req.body.answer1,
+            question.answer2 = req.body.answer2,
+            question.answer3 = req.body.answer3,
+            question.answer4 = req.body.answer4,
             question.answer = req.body.answer
 
             question.save(function (error){

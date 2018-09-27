@@ -5,7 +5,6 @@
       <md-button class="md-icon-button" @click="showNavigation = true">
         <md-icon>menu</md-icon>
       </md-button> -->
-      <span class="md-title">Schoolify</span>
 
       <div class="md-toolbar-section-end">
       <md-button class="md-icon-button md-raised" @click="showNavigation = true">
@@ -17,6 +16,7 @@
       </md-button>
        -->
       </div>
+        <span class="md-title">Schoolify</span>
     </md-toolbar>
 
     <!-- Left navigation -->

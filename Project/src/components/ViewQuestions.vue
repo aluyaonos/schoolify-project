@@ -13,7 +13,7 @@
                 <tr><th>#</th><th>Question</th><th>Course Code</th><th>Priority</th></tr>
               </thead>
               <tbody>
-                <tr v-for="(list, index) in questions" :key="list.id"><th scope="row">{{index + 1}}</th><td>{{list.question | ellipsis}}</td><td>{{list.course}}</td><td>{{list.priority}}</td></tr>
+                <tr v-for="(list, index) in questions" :key="list.id"><th scope="row">{{index + 1}}</th><td>{{list.question | ellipsis}}<question-view :view="viewQuestions" :list="list"></question-view></td><td>{{list.course}}</td><td>{{list.priority}}</td></tr>
               </tbody>
             </table>
           </card-body>
@@ -26,6 +26,7 @@
 <script>
 import { Row, Column, Card, ViewWrapper, CardBody } from 'mdbvue'
 import AddingQuestion from '@/services/AddingQuestion'
+import QuestionView from './attachments/ModalPopup/QuestionView'
 import _ from 'lodash'
 
 export default {
@@ -35,11 +36,13 @@ export default {
     Column,
     Card,
     ViewWrapper,
-    CardBody
+    CardBody,
+    QuestionView
   },
   data () {
     return {
-      questions: null
+      questions: null,
+      showFluidModalRight: false
     }
   },
   filters: {
@@ -47,6 +50,11 @@ export default {
       return _.truncate(value, {
         'length': 30
       })
+    }
+  },
+  methods: {
+    viewQuestions () {
+      this.showFluidModalRight = true
     }
   },
   async mounted () {

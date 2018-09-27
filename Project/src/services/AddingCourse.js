@@ -7,7 +7,10 @@ export default {
   courseList () {
     return Api().get('viewcourse')
   },
-  updateCourse (id, courseupdate) {
-    return Api().put('viewcourse/' + id, courseupdate)
+  updateCourse (params) {
+    return Api().put('viewcourse/' + params.id, params)
+  },
+  deleteCourse (id) {
+    return Api().delete('viewcourse/' + id)
   }
 }

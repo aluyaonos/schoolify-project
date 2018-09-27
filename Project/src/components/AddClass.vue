@@ -111,12 +111,12 @@
                       <p class="typo__p orange-text" v-if="submitStatus === 'PENDING'">Sending...</p> -->
 
                       <btn outline="success" rounded size="md" @click.native.prevent="attending()" :disabled='$wait.is("post class")'>
- <v-wait for='post class'>
-    <template slot="waiting">
-      Saving..
-    </template>
-    Save
-  </v-wait>
+                      <v-wait for='post class'>
+                        <template slot="waiting">
+                          Saving..
+                        </template>
+                        Save
+                      </v-wait>
                       </btn>
                       <btn outline="danger" rounded size="md" @click.native.prevent="$v.$reset; resetter()">Clear</btn>
                     </column>

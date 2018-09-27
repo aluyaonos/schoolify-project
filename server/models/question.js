@@ -6,6 +6,10 @@ var questionSchema = new Schema({
     course: String,
     priority: String,
     question: String,
+    answer1: String,
+    answer2: String,
+    answer3: String,
+    answer4: String,
     answer: String
 });
 

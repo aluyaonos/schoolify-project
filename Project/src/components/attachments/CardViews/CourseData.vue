@@ -10,39 +10,37 @@
                 </view-wrapper>
                 <card-body>
                 <card-title class="font-bold mb-3 mt-2">
-                    <a class="p-2" href="#profile">
+                    <div class="p-2" @click.native="showFluidModalRight = true">
                       <strong>{{course.title}} - {{course.courseCode}}</strong>
-                    </a>
+                    </div>
+                    <course-view :showFluidModalRight="showFluidModalRight" :key="course._id" :coursedata="course">
+                    </course-view>
                 </card-title>
                 <card-text>
-                  <div class="d-flex justify-content-center">
+                  <div class="d-flex justify-content-center mt-4">
                   <h6>
                   <strong>Class</strong>
                   <badge pill color="light-blue">{{course.classLevel}}</badge>
                   </h6>
                   </div>
-                  <div class="d-flex justify-content-center mt-2">
+                  <div class="d-flex justify-content-center">
                   <h6>
-                  <strong>Course Rep Details</strong>
+                  <strong>Times a week</strong>
+                  <badge pill color="light-blue">{{course.timesAweek}}</badge>
                   </h6>
                   </div>
                   <div class="d-flex justify-content-center">
-                  <p>
-                  <strong>{{course.repName}}</strong>
-                  </p>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                  <p>
-                  <strong>{{course.email}}</strong>
-                  </p>
+                  <h6>
+                  <strong>Participating Lecturers</strong>
+                  <badge pill color="light-blue">{{course.contLecturers}}</badge>
+                  </h6>
                   </div>
                 </card-text>
                 </card-body>
                 <card-footer class="links-light profile-card-footer justify-content-center">
                   <span class="right">
-                    <a class="p-2" href="#profile">
+                    <a class="p-2" @click="deleteCourse(course._id, index)">
                       Delete
-                      <fa icon="photo" class="ml-1"/>
                     </a>
                   </span>
                 </card-footer>
@@ -76,6 +74,12 @@ export default {
     Badge,
     CourseView
   },
+  data () {
+    return {
+      showFluidModalRight: false,
+      courses: null
+    }
+  },
   computed: {
     groupedCourses () {
       return _.chunk(this.courses, 3)
@@ -86,6 +90,12 @@ export default {
       this.courses = (await AddingCourse.courseList()).data
     } catch (err) {
       console.log(err)
+    }
+  },
+  methods: {
+    async deleteCourse (id, index) {
+      await AddingCourse.deleteCourse(id)
+      this.courses.splice(index, 1)
     }
   }
 }

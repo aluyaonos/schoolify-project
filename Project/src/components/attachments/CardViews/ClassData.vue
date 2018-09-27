@@ -44,7 +44,6 @@
                   <span class="right">
                     <a class="p-2" @click="deleteClass(aclass._id, index)">
                       Delete
-                      <fa icon="photo" class="ml-1"/>
                     </a>
                   </span>
                 </card-footer>
