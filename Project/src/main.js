@@ -14,7 +14,21 @@ import 'vue-material/dist/theme/default.css'
 import Vuelidate from 'vuelidate'
 import Multiselect from 'vue-multiselect'
 import VueScroller from 'vue-scroller'
+import VueHtmlToPaper from 'vue-html-to-paper'
 import _ from 'lodash'
+
+const options = {
+  name: '_blank',
+  specs: [
+    'fullscreen=yes',
+    'titlebar=yes',
+    'scrollbars=yes'
+  ],
+  styles: [
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    'https://unpkg.com/kidlat-css/css/kidlat.css'
+  ]
+}
 
 Vue.use(Multiselect)
 Vue.use(VueMaterial)
@@ -22,6 +36,7 @@ Vue.use(Vuelidate)
 Vue.use(VueWait)
 Vue.use(_)
 Vue.use(VueScroller)
+Vue.use(VueHtmlToPaper, options)
 
 Vue.use(VueGoogleMaps, {
   load: {
