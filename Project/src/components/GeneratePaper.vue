@@ -57,6 +57,7 @@
                 <h2 class="grey-text">
                   <center>Awaiting The Questions</center>
                 </h2>
+                <center><img alt="loading" class="loader2" src="../assets/infinity.svg"/></center>
               </div>
             </v-wait>
             </card-body>
@@ -209,6 +210,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .loader {
+  width: 12%;
+  height: auto;
+}
+.loader2 {
   width: 12%;
   height: auto;
 }

@@ -32,7 +32,7 @@
         <card cascade narrow class="d-flex mb-2 top-left">
           <card-body>
             <view-wrapper>
-            <h3 class="h3-responsive mt-2 text-center">Add A New Class</h3>
+            <h3 class="h3-responsive mt-2 text-center">Add Class</h3>
               <md-mask overlay="white-slight" waves/>
             </view-wrapper>
             <card-text>

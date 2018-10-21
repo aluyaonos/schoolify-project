@@ -31,7 +31,7 @@
         <card cascade narrow class="d-flex bottom-left mb-2">
           <card-body>
             <view-wrapper>
-            <h3 class="h3-responsive mt-2 text-center">Add A New Course</h3>
+            <h3 class="h3-responsive mt-2 text-center">Add Course</h3>
               <md-mask overlay="white-slight" waves/>
             </view-wrapper>
             <card-text>
