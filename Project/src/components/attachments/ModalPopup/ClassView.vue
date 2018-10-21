@@ -45,9 +45,7 @@
             </row>
             </modal-body>
             <modal-footer class="d-flex justify-content-center">
-              <btn size="sm" color="secondary" @click.native="showFluidModalRight = false">Close</btn>
-              <btn size="sm" color="blue" @click.native="logger">Edit</btn>
-              <btn size="sm" color="primary" @click.native.prevent="update" :disabled="submitStatus === 'PENDING'">Save changes</btn>
+              <btn outline="danger" size="md" @click.native="showFluidModalRight = false">Close</btn>
               <btn type="submit" outline="success" rounded size="md" @click.native.prevent="update" :disabled='$wait.is("post class")'>
                 <v-wait for='post class'>
                     <template slot="waiting">

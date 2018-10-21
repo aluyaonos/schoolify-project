@@ -28,23 +28,22 @@
 
                   <multiselect class="form__input" v-model.trim="$v.classLevel.$model" :options="classTostrin" placeholder="Type to search" label="classLevel" track-by="classLevel" id="classLevel" :loading="isLoading" :searchable="true" open-direction="bottom" :options-limit="10" :max-height="600" :hide-selected="true"></multiselect><!-- database -->
 
-<row>
-<column col="6">
+                    <row>
+                    <column col="6">
                   <md-field>
                     <label>Participating Lectures</label>
                     <md-input v-model.trim="$v.contLecturers.$model"></md-input>
                     <span class="md-helper-text red-text" v-if="!$v.contLecturers.between">Must be between {{$v.contLecturers.$params.between.min}} and {{$v.contLecturers.$params.between.max}}</span>
                   </md-field>
-</column>
-<column col="6">
+                    </column>
+                    <column col="6">
                   <md-field>
                     <label>Times A Week</label>
                     <md-input  v-model.trim="$v.timesAweek.$model"></md-input>
                     <span class="md-helper-text red-text" v-if="!$v.timesAweek.between">Must be between {{$v.timesAweek.$params.between.min}} and {{$v.timesAweek.$params.between.max}}</span>
                   </md-field>
-</column>
-</row>
-
+                    </column>
+                    </row>
                   <md-field>
                     <label>Course Description</label>
                     <md-textarea :rows="2"  v-model.trim="$v.description.$model"/>
@@ -56,9 +55,7 @@
             </row>
             </modal-body>
             <modal-footer class="d-flex justify-content-center">
-              <btn size="sm" color="secondary" @click.native="showFluidModalRight = false">Close</btn>
-              <btn size="sm" color="blue" @click.native="logger">Edit</btn>
-              <btn size="sm" color="primary" @click.native.prevent="update(); tooltipActive = !tooltipActive" :disabled="submitStatus === 'PENDING'">Save changes</btn>
+              <btn outline="danger" size="md" color="secondary" @click.native="showFluidModalRight = false">Close</btn>
               <btn type="submit" outline="success" rounded size="md" @click.native.prevent="update" :disabled='$wait.is("post class")'>
                 <v-wait for='post class'>
                     <template slot="waiting">

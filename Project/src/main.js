@@ -13,6 +13,7 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import Vuelidate from 'vuelidate'
 import Multiselect from 'vue-multiselect'
+import VueScroller from 'vue-scroller'
 import _ from 'lodash'
 
 Vue.use(Multiselect)
@@ -20,6 +21,7 @@ Vue.use(VueMaterial)
 Vue.use(Vuelidate)
 Vue.use(VueWait)
 Vue.use(_)
+Vue.use(VueScroller)
 
 Vue.use(VueGoogleMaps, {
   load: {

@@ -16,13 +16,17 @@
       </md-button>
        -->
       </div>
-        <span class="md-title">Schoolify</span>
+        <span class="md-title">
+        <img src="@/assets/logo title.png" alt="Schoolify Title" class="title-img"/>
+        </span>
     </md-toolbar>
 
     <!-- Left navigation -->
     <md-drawer :md-active.sync="showNavigation">
       <md-toolbar class="md-transparent" md-elevation="0">
-        <span class="md-title">Schoolify</span>
+        <span class="md-title">
+        <img src="@/assets/logo menu.png" alt="Schoolify Menu" class="menu-img"/>
+        </span>
       </md-toolbar>
 
     <div class="full-control">
@@ -195,44 +199,31 @@
       <div class="p-4">
         <router-view></router-view>
       </div>
-      <ftr color="primary-color-dark" class="text-center font-small darken-2">
+      <ftr color="elegant-color-dark" class="text-center font-small darken-2">
         <div class="pt-4">
-          <btn outline="white" tag="a" href="https://mdbootstrap.com/getting-started/" target="_blank">Download MDB
+          <!-- <btn outline="white" tag="a" href="https://mdbootstrap.com/getting-started/" target="_blank">Download MDB
             <fa icon="download" class="ml-2" />
           </btn>
           <btn outline="white" tag="a" href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank">Start free tutorial
             <fa icon="graduation-cap" class="ml-2" />
-          </btn>
+          </btn> -->
+          <img src="@/assets/logo footer.png" alt="Schoolify Footer" class="footer-img"/>
+          <p class="text-center font-small darken-2">Made with <img src="@/assets/heart.png" alt="Love" class="heart"/> by Vue</p>
         </div>
         <hr class="my4" />
         <div class="pb-4">
-          <a href="#">
+          <a href="https://fb.com/aluya-onos">
             <fa icon="facebook" class="mr-3" />
           </a>
-          <a href="#">
-            <fa icon="twitter" class="mr-3" />
-          </a>
-          <a href="#">
-            <fa icon="youtube" class="mr-3" />
-          </a>
-          <a href="#">
+          <a href="https://google.com/aluyagodday">
             <fa icon="google-plus" class="mr-3" />
           </a>
-          <a href="#">
-            <fa icon="dribbble" class="mr-3" />
-          </a>
-          <a href="#">
-            <fa icon="pinterest" class="mr-3" />
-          </a>
-          <a href="#">
+          <a href="https://github.com/aluyaonos">
             <fa icon="github" class="mr-3" />
-          </a>
-          <a href="#">
-            <fa icon="codepen" class="mr-3" />
           </a>
         </div>
         <p class="footer-copyright mb-0 py-3 text-center">
-          &copy; {{new Date().getFullYear()}} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+          &copy; {{new Date().getFullYear()}} Copyright  <a href="https://www.MDBootstrap.com"> Schoolify </a>
         </p>
       </ftr>
     </main>
@@ -295,8 +286,33 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .heart{
+    width: 3%;
+    height: auto;
+  }
+  .title-img{
+    width: 10%;
+    height: auto;
+    padding-top: 1.2rem;
+    margin-left: 0.5rem;
+  }
+  .menu-img{
+    width: 95%;
+    height: auto;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  .footer-img{
+    width: 15%;
+    height: auto;
+    padding-top: 0.3rem;
+    margin-left: 1.4rem;
+  }
   main {
-    background-color: #EDEDEE;
+    background-color: #fff;
+  }
+  .app-nav {
+    background-color: #fff;
   }
   .flexible-content {
     transition: padding-left 0.3s;
@@ -348,6 +364,22 @@ export default {
       padding-left: 10px;
     }
   }
+  @media (max-width: 769px) {
+    .title-img{
+      width: 15%;
+      height: auto;
+      padding-top: 1.2rem;
+      margin-left: 0.5rem;
+    }
+  }
+  @media (max-width: 480px) {
+    .title-img{
+      width: 25%;
+      height: auto;
+      padding-top: 1.2rem;
+      margin-left: 0.5rem;
+    }
+  }
 </style>
 
 <style>
@@ -367,7 +399,7 @@ export default {
   }
   .md-toolbar {
     box-shadow: none;
-    background-color: #EDEDEE;
+    background-color: #fff;
   }
 
    // Demo purposes only

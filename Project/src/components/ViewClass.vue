@@ -4,7 +4,7 @@
       <column md="12">
         <card cascade narrow class="mt-2">
           <view-wrapper class="gradient-card-header blue darken-2">
-            <h4 class="h4-responsive text-white">View Class</h4>
+            <h4 class="h4-responsive text-white"><strong>View Class</strong></h4>
           </view-wrapper>
           <card-body>
           <class-data>

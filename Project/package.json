@@ -26,6 +26,7 @@
     "vue-multiselect": "^2.1.0",
     "vue-pagination-bootstrap": "^1.0.3",
     "vue-router": "^3.0.1",
+    "vue-scroller": "^2.2.4",
     "vue-wait": "^1.3.2",
     "vue2-google-maps": "^0.9.7",
     "vuelidate": "^0.7.4"

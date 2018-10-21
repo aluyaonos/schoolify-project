@@ -3,12 +3,10 @@
     <v-wait for="overlay reload">
     <template slot="waiting">
     <div class="d-flex justify-content-center">
-      <row class="mt-5">
-        <column md="12" class="mt-5">
-          <h2 class="h2-responsive mt-5 mb-5">Creating A blank slate ...</h2>
-          <h4>The requested URL was not found on this server.</h4>
-          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
-          <h4>Error 404</h4>
+      <row class="mt-3">
+        <column md="12" class="mt-3">
+          <center><img alt="Reloading" class="overlay" src="../assets/logo title.png"/></center>
+          <center><h3 class="h3-responsive mt-5 mb-5">Creating A blank slate ...</h3></center>
         </column>
       </row>
     </div>
@@ -17,20 +15,18 @@
     <v-wait for="overlay">
       <template slot="waiting">
     <div class="d-flex justify-content-center">
-      <row class="mt-5">
-        <column md="12" class="mt-5">
-          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
-          <h2 class="h2-responsive mt-5 mb-5">404. That's an error.</h2>
-          <h4>The requested URL was not found on this server.</h4>
-          <h4>Error 404</h4>
-          <btn outline="success" rounded size="md" @click.native='created'>Add New
-          </btn>
+      <row class="mt-3">
+        <column md="12" class="mt-3">
+          <center><img alt="Saved" class="overlay" src="../assets/logo menu.png"/></center>
+          <center><h5>Made with <img src="@/assets/heart.gif" alt="Love" class="heart"/> by Vue</h5></center>
+          <center><h4 class="mt-5">Do you want to add a new question ?</h4><btn class="mb-5" outline="success" rounded size="md" @click.native='created'>Add New
+          </btn></center>
         </column>
       </row>
     </div>
     </template>
     <form>
-    <row>
+    <row class="mt-4">
       <column md="4" class="mb-1">
         <card cascade narrow class="d-flex mb-5 side">
           <card-body>
@@ -180,8 +176,8 @@
               </card>
             </column>
           </row>
-          <row class="d-flex justify-content-center">
-              <column col="12" class="mb-3">
+          <row class="d-flex justify-content-center mt-5">
+              <column col="12" class="mb-3 mt-5">
                 <card cascade narrow class="d-flex mb-5 bottom-right">
                   <card-body>
                   <div class="">
@@ -189,7 +185,6 @@
                   <p class="typo__p red-text" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
                   <p class="typo__p orange-text" v-if="submitStatus === 'PENDING'">Sending...</p> -->
 
-                  <btn outline="success" rounded size="sm" @click.native.prevent="logger" :disabled="submitStatus === 'PENDING'">Logger</btn>
                   <btn outline="success" rounded size="md" @click.native.prevent="prepare" :disabled='$wait.is("post class")'>
                   <v-wait for='post class'>
                       <template slot="waiting">
@@ -198,7 +193,7 @@
                       Save
                     </v-wait>
                     </btn>
-                  <btn outline="danger" rounded size="sm" @click.native.prevent="resetter">Cancel</btn>
+                  <btn outline="danger" rounded size="md" @click.native.prevent="resetter">Clear</btn>
                   </div>
                   </card-body>
                 </card>
@@ -294,12 +289,11 @@ export default {
     },
     courseString () {
       return _.toString(this.courseSelected)
-      // return _.filter(this.courseSelect, { 'courseCode': this.courseSelected })
-      // return _.find(this.courseSelect, function (o) { return o.courseCode === (_.values(this.course)) })
     },
     courseTrimmed () {
       return _.trim(this.courseString, '"')
     },
+    // get the class level of the selected course
     classLevel () {
       return _(this.courseSelect)
         .filter(c => c.courseCode === this.courseTrimmed)
@@ -355,6 +349,7 @@ export default {
           })
           this.$wait.end('post class')
           this.$wait.start('overlay')
+          this.resetter()
         }
       } catch (error) {
         this.error = error.response.data.error
@@ -363,18 +358,25 @@ export default {
     resetter () {
       this.$v.$reset()
       this.classLevel = null
-      this.studentNumber = null
-      this.repName = null
-      this.email = null
+      this.selectedAnswer = null
+      this.course = null
+      this.question = null
+      this.answer = null
+      this.priority = null
+      this.courseSelected = null
+      this.prioritySelected = null
+      this.answer1 = null
+      this.answer2 = null
+      this.answer3 = null
+      this.answer4 = null
       this.submitStatus = null
-      this.$v.$reset()
     },
     async created () {
+      this.$wait.end('overlay')
       this.$wait.start('overlay reload')
       this.myList = await new Promise(resolve => {
-        setTimeout(() => resolve(mockData), 5000)
+        setTimeout(() => resolve(this.$v.$reset()), 4000)
       })
-      location.reload()
       this.$wait.end('overlay reload')
     },
     logger () {
@@ -391,6 +393,16 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped>
+.heart{
+  width: 4%;
+  height: auto;
+}
+.overlay{
+  width: 30%;
+  height: auto;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
 .top-right {
   border-radius: 0 25px 0 2px
 }

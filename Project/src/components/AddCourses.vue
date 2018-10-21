@@ -3,12 +3,10 @@
     <v-wait for="overlay reload">
     <template slot="waiting">
     <div class="d-flex justify-content-center">
-      <row class="mt-5">
-        <column md="12" class="mt-5">
-          <h2 class="h2-responsive mt-5 mb-5">Creating A blank slate ...</h2>
-          <h4>The requested URL was not found on this server.</h4>
-          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
-          <h4>Error 404</h4>
+      <row class="mt-3">
+        <column md="12" class="mt-3">
+          <center><img alt="Reloading" class="overlay" src="../assets/logo title.png"/></center>
+          <center><h3 class="h3-responsive mt-5 mb-5">Creating A blank slate ...</h3></center>
         </column>
       </row>
     </div>
@@ -17,22 +15,20 @@
     <v-wait for="overlay">
       <template slot="waiting">
     <div class="d-flex justify-content-center">
-      <row class="mt-5">
-        <column md="12" class="mt-5">
-          <img alt="Error 404" class="img-fluid" height="20px" src="../assets/logo-mdb-vue-small.png"/>
-          <h2 class="h2-responsive mt-5 mb-5">404. That's an error.</h2>
-          <h4>The requested URL was not found on this server.</h4>
-          <h4>Error 404</h4>
-          <btn outline="success" rounded size="md" @click.native='created'>Add New
-          </btn>
+      <row class="mt-3">
+        <column md="12" class="mt-3">
+          <center><img alt="Saved" class="overlay" src="../assets/logo menu.png"/></center>
+          <center><h5>Made with <img src="@/assets/heart.gif" alt="Love" class="heart"/> by Vue</h5></center>
+          <center><h4 class="mt-5">Do you want to add a new course ?</h4><btn class="mb-5" outline="success" rounded size="md" @click.native='created'>Add New
+          </btn></center>
         </column>
       </row>
     </div>
     </template>
     <form>
-    <row>
+    <row class="mt-4">
       <column md="7" class="mb-1">
-        <card cascade narrow class="d-flex bottom-left mb-5">
+        <card cascade narrow class="d-flex bottom-left mb-2">
           <card-body>
             <view-wrapper>
             <h3 class="h3-responsive mt-2 text-center">Add A New Course</h3>
@@ -120,7 +116,7 @@
             </column>
           </row>
           <row class="d-flex justify-content-center">
-            <column col="12" class="mb-3">
+            <column col="12" class="mb-3 mt-3">
               <card cascade narrow class="d-flex mb-5">
                 <card-body>
 
@@ -257,6 +253,7 @@ export default {
           })
           this.$wait.end('post class')
           this.$wait.start('overlay')
+          this.resetter()
         }
       } catch (error) {
         this.error = error.response.data.error
@@ -267,19 +264,17 @@ export default {
       this.title = ''
       this.courseCode = ''
       this.classLevel = null
-      this.classSelect = []
       this.timesAweek = null
       this.contLecturers = null
       this.description = ''
       this.submitStatus = null
-      this.$v.$reset()
     },
     async created () {
+      this.$wait.end('overlay')
       this.$wait.start('overlay reload')
       this.myList = await new Promise(resolve => {
-        setTimeout(() => resolve(mockData), 5000)
+        setTimeout(() => resolve(this.$v.$reset()), 4000)
       })
-      location.reload()
       this.$wait.end('overlay reload')
     }
   }
@@ -290,6 +285,16 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped>
+.heart{
+  width: 4%;
+  height: auto;
+}
+.overlay{
+  width: 30%;
+  height: auto;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
 .top-right {
   border-radius: 0 25px 0 2px
 }

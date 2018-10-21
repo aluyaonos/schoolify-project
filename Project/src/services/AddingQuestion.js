@@ -6,5 +6,8 @@ export default {
   },
   questionList () {
     return Api().get('viewquestion')
+  },
+  uniqueQuestion (course) {
+    return Api().get('generatepaper/' + course)
   }
 }
