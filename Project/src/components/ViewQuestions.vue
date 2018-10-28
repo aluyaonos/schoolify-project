@@ -13,9 +13,9 @@
                 <tr><th>#</th><th>Question</th><th>Course Code</th><th>Priority</th></tr>
               </thead>
               <tbody>
-              <scroller :on-infinite="infinite" style="padding-top: 44px;">
+              <!-- <scroller :on-infinite="infinite" style="padding-top: 44px;"> -->
                 <tr v-for="(list, index) in questions" :key="list.id"><th scope="row">{{index + 1}}</th><td>{{list.question | ellipsis}}<question-view :view="viewQuestions" :list="list"></question-view></td><td>{{list.course}}</td><td>{{list.priority}}</td></tr>
-              </scroller>
+            <!--  </scroller> -->
               </tbody>
             </table>
           </card-body>

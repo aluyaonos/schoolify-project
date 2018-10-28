@@ -45,11 +45,14 @@
               <div v-for = "(selQ, index) in selectedQ" :key = "selQ.id">
                 <hr/> <center>
                 <btn outline="success" rounded size="sm" @click.native.prevent="changeQuestion(index)">Change</btn>
-                <p> {{index+1}}. {{selQ.question}}
+                <div :id="'print'+index" class="page">
+                <!-- style="page-break-before: always; page-break-after: always;" -->
+                <p style="page-break-before: always; page-break-after: always;"> {{index+1}}. {{selQ.question}}
                 </p>
                 <p> [A]  {{selQ.answer1}}  [B]  {{selQ.answer2}}  [C]  {{selQ.answer3}}  [D]  {{selQ.answer4}}
-                </p> </center>
+                </p> </div> </center>
               </div>
+              <center><btn outline="success" rounded size="md" @click.native.prevent="pdfexport()">Print</btn></center>
             </div>
             </template>
 
@@ -74,6 +77,8 @@ import _ from 'lodash'
 import Multiselect from 'vue-multiselect'
 import AddingCourse from '@/services/AddingCourse'
 import AddingQuestion from '@/services/AddingQuestion'
+import Jspdf from 'jspdf'
+import JQuery from 'jquery'
 // import SampleData from './SampleData.json'
 
 const mockData = ['a', 'b', 'c', 'd']
@@ -114,7 +119,8 @@ export default {
       questions: [],
       selectedQuestions: [],
       myList: [],
-      me: null
+      me: null,
+      output: null
     }
   },
   /* filters: {
@@ -191,6 +197,8 @@ export default {
         this.selectedQ.splice(index, 1, this.arrnew[0])
         this.arrnew = _.pullAllBy(this.arrnew, this.selectedQ, '_id')
         this.arrnew = _.shuffle(this.arrnew)
+        // selectedQ is changing... now to save the contents in mongo
+        console.log(JSON.stringify(this.selectedQ, null, 2))
       } else {
         console.log('Oga!! no more questions')
       }
@@ -201,6 +209,35 @@ export default {
       })
       this.$wait.end('generate')
       this.$wait.start('overlay questions')
+    },
+    pdfexport () {
+      let i = 0
+      let $ = JQuery
+      let doc = new Jspdf()
+      let specialElementHandlers = {
+        '#bypassme': function (element, renderer) {
+          return true
+        }
+      }
+      let margins = {
+        top: 40,
+        bottom: 60,
+        left: 40,
+        width: 522
+      }
+      for (i = 0; i < this.needQ; i++) {
+        doc.fromHTML($('#print' + i).get(0), margins.left, margins.top, {
+          'width': margins.width,
+          'elementHandlers': specialElementHandlers
+        })
+      }
+      doc.save(this.courseTrimmed + '.pdf')
+      this.$wait.end('overlay questions')
+      this.resetter()
+    },
+    resetter () {
+      this.course = null
+      this.needQ = null
     }
   }
 }
@@ -227,5 +264,9 @@ export default {
   left: 55%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+.page {
+  page-break-before: always;
+  page-break-after: always;
 }
 </style>

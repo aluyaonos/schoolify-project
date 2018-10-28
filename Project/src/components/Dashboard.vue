@@ -217,7 +217,7 @@
 </template>
 
 <script>
-import { Row, Column, Btn, Card, CardBody, CardHeader, CardText, Fa, BarChart, PieChart, LineChart, RadarChart, DoughnutChart, ListGroup, ListGroupItem, Badge, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, MdInput } from 'mdbvue'
+import { Row, Column, Btn, Card, CardBody, CardHeader, ViewWrapper, MdMask, CardTitle, CardText, Fa, BarChart, PieChart, LineChart, RadarChart, DoughnutChart, ListGroup, ListGroupItem, Badge, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, MdInput } from 'mdbvue'
 
 export default {
   name: 'Dashboard',
@@ -228,6 +228,9 @@ export default {
     Card,
     CardBody,
     CardHeader,
+    ViewWrapper,
+    MdMask,
+    CardTitle,
     CardText,
     Fa,
     BarChart,

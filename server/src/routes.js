@@ -2,6 +2,7 @@
 const ClassController = require('../controllers/classController')
 const CourseController = require('../controllers/courseController')
 const QuestionController = require('../controllers/questionController')
+const PaperController = require('../controllers/paperController')
 
 module.exports = (app) => {
 
@@ -56,4 +57,17 @@ module.exports = (app) => {
     // Route For Question Using Course As Params
     app.get('/generatepaper/:course',
         QuestionController.singleQuestionByCourse)
+
+    //Routes for Question Papers
+    app.get('/questionvault',
+        PaperController.viewPaper),
+
+    app.post('/generatepaper', 
+        PaperController.addPaper),
+
+    app.get('/viewquestion/:paperid',
+        PaperController.singlePaper)
+
+    app.delete('/questionvault/:paperid',
+        PaperController.deletePaper)
 }

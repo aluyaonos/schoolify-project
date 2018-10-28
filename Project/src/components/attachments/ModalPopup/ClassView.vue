@@ -6,7 +6,7 @@
           <btn outline="primary" size="sm" @click.native="showFluidModalRight = true">View</btn>
           <modal fullHeight position="right" v-if="showFluidModalRight" @close="showFluidModalRight = false">
             <modal-header>
-              <modal-title>View Class</modal-title>
+              <modal-title>Update Class</modal-title>
             </modal-header>
             <modal-body>
             <row>

@@ -5,7 +5,7 @@
           <div class="col-12 col-md-4" v-for="(aclass, index) in aclasses" :key="aclass._id">
               <card cascade narrow class="d-flex mb-1 mt-4">
                 <view-wrapper>
-                <img src="@/assets/courses.jpg" alt="Project" class="img-fluid"/>
+                <img src="@/assets/class.jpg" alt="Project" class="img-fluid"/>
                 <md-mask overlay="white-slight" waves/>
                 </view-wrapper>
                 <card-body>
