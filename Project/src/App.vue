@@ -16,9 +16,11 @@
       </md-button>
        -->
       </div>
+      <div class="md-toolbar-section-start">
         <span class="md-title">
         <img src="@/assets/logo title.png" alt="Schoolify Title" class="title-img"/>
         </span>
+      </div>
     </md-toolbar>
 
     <!-- Left navigation -->
@@ -41,10 +43,10 @@
             </md-list-item>
           </router-link>
 
-          <router-link to="/profile" @click.native="activeItem = 2">
+          <router-link to="/about" @click.native="activeItem = 2">
             <md-list-item :action="true" :class="activeItem === 2 && 'active'">
               <fa icon="user" class="mr-4" />
-              <span class="md-list-item-text">Profile</span>
+              <span class="md-list-item-text">About</span>
             </md-list-item>
           </router-link>
           <!-- /Single Items -->
@@ -235,7 +237,7 @@
 <script>
 import { Collapse, Column, Row, Card, Container, Navbar, NavbarItem, NavbarNav, NavbarCollapse, Btn, Fa, CardBody, Footer, waves } from 'mdbvue'
 import Dashboard from './components/Dashboard'
-import Profile from './components/Profile'
+import About from './components/About'
 
 export default {
   name: 'AdminTemplate',
@@ -254,7 +256,7 @@ export default {
     CardBody,
     'ftr': Footer,
     Dashboard,
-    Profile
+    About
   },
   data () {
     return {
@@ -291,7 +293,7 @@ export default {
     height: auto;
   }
   .title-img{
-    width: 10%;
+    width: 15%;
     height: auto;
     padding-top: 1.2rem;
     margin-left: 0.5rem;
@@ -366,7 +368,7 @@ export default {
   }
   @media (max-width: 769px) {
     .title-img{
-      width: 15%;
+      width: 60%;
       height: auto;
       padding-top: 1.2rem;
       margin-left: 0.5rem;
@@ -374,7 +376,7 @@ export default {
   }
   @media (max-width: 480px) {
     .title-img{
-      width: 25%;
+      width: 60%;
       height: auto;
       padding-top: 1.2rem;
       margin-left: 0.5rem;
