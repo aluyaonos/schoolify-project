@@ -19,10 +19,10 @@ require('./routes')(app)
 //Serve static apps if in production
 if (process.env.NODE_ENV === 'production') {
     //set static folder
-    app.use(express.static('../Project/dist'))
+    app.use(express.static('Project/dist'))
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../Project', 'dist', 'index.html'))
+        res.sendFile(path.resolve(__dirname, 'Project', 'dist', 'index.html'))
     })
 
 }
