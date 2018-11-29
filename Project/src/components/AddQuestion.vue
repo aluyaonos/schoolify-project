@@ -318,14 +318,19 @@ export default {
         this.selectedAnswer = null
       }
     },
+    // storing questions
     async prepare () {
+      // detecting if any input was entered in the form fields
       this.$v.$touch()
+      // JavaScript's try & catch method for reliability
       try {
         console.log('submit!')
         this.$v.$touch()
         this.$wait.start('post class')
+        // form validation -- invalid
         if (this.$v.$invalid) {
           this.submitStatus = 'ERROR'
+        // form validation -- valid
         } else {
         //  submit logic here
           this.selectAnswer()
@@ -349,6 +354,7 @@ export default {
           })
           this.$wait.end('post class')
           this.$wait.start('overlay')
+          // a function to reset form fields
           this.resetter()
         }
       } catch (error) {

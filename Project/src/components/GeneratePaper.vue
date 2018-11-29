@@ -153,11 +153,14 @@ export default {
     async uniqueQuestion () {
       this.generatePaper(this.courseTrimmed)
     },
+    // question bank logic
     async generatePaper (uniqueCourse) {
       this.$wait.start('generate')
       this.created()
+      // GET request to retrieve questions
       this.checking = (await AddingQuestion.uniqueQuestion(uniqueCourse)).data
       this.arr2 = this.checking
+      // "_." loadash component to filter questions with priority 1 & 2
       this.qp1 = _.filter(this.arr2, function (pars) {
         return pars.priority === 'Priority 1'
       })
@@ -165,19 +168,26 @@ export default {
         return pars.priority === 'Priority 2'
       })
       this.sizeqp1 = _.size(this.qp1)
+      // form validation -- invalid number
       if (this.needQ === null) {
-        console.log('Please enter some values na!!')
+        console.log('Please enter a question number!!')
       }
+      // form validation -- if required questions are lesser than
+      // questions with priority one
       if (this.needQ <= this.sizeqp1) {
         this.selectedQ = _.sampleSize(this.qp1, this.needQ)
         this.arrnew = _.pullAllBy(this.arr2, this.selectedQ, '_id')
       }
+      // form validation -- if required questions are greater than
+      // questions with priority one, then concatenate with questions
+      // with priority two
       if (this.needQ > this.sizeqp1) {
         this.forq2 = this.needQ - this.sizeqp1
         this.reqQp1 = _.sampleSize(this.qp1, this.sizeqp1)
         this.reqQp2 = _.sampleSize(this.qp2, this.forq2)
         this.selectedQ = _.concat(this.reqQp1, this.reqQp2)
         this.arrnew = _.pullAllBy(this.arr2, this.selectedQ, '_id')
+        // "_." loadash component to shuffle the required questions
         this.selectedQ = _.shuffle(this.selectedQ)
       }
       console.log(JSON.stringify(this.checking, null, 2))
@@ -191,6 +201,7 @@ export default {
       console.log(JSON.stringify(this.arrnew, null, 2)) */
     },
     // Changing a generated question by its array index
+    // for cases where a displayed question is not preferred
     changeQuestion (index) {
       this.sizeArrnew = _.size(this.arrnew)
       if (this.sizeArrnew != null) {
@@ -200,7 +211,7 @@ export default {
         // selectedQ is changing... now to save the contents in mongo
         console.log(JSON.stringify(this.selectedQ, null, 2))
       } else {
-        console.log('Oga!! no more questions')
+        console.log('No more questions')
       }
     },
     async created () {
